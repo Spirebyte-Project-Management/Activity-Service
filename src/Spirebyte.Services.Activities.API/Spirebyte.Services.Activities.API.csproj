@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <UserSecretsId>42a1577c-f987-40cb-a86f-b405f8011969</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerfileContext>..\..\..\..</DockerfileContext>
+        <DockerComposeProjectPath>..\..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+        <LangVersion>latestmajor</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Convey" Version="1.0.531"/>
+        <PackageReference Include="Convey.Logging" Version="1.0.531"/>
+        <PackageReference Include="Convey.WebApi" Version="1.0.531"/>
+        <PackageReference Include="Convey.WebApi.CQRS" Version="1.0.531"/>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Spirebyte.Services.Activities.Infrastructure\Spirebyte.Services.Activities.Infrastructure.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="wwwroot\ui\index.html"/>
+        <_ContentIncludedByDefault Remove="wwwroot\ui\js\app.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\ui\js\signalr.js"/>
+    </ItemGroup>
+</Project>
