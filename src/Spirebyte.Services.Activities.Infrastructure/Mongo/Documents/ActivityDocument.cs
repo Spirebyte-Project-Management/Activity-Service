@@ -1,9 +1,11 @@
 ﻿using System;
 using Convey.Types;
+using MongoDB.Bson.Serialization.Attributes;
 using Spirebyte.Services.Activities.Core.Enums;
 
 namespace Spirebyte.Services.Activities.Infrastructure.Mongo.Documents;
 
+[BsonIgnoreExtraElements]
 public class ActivityDocument : IIdentifiable<Guid>
 {
     public Guid UserId { get; set; }

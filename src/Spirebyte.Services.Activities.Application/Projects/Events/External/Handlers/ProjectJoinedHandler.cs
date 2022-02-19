@@ -26,7 +26,7 @@ public class ProjectJoinedHandler : IEventHandler<ProjectJoined>
     public async Task HandleAsync(ProjectJoined @event, CancellationToken cancellationToken = default)
     {
         var activity = new Activity(Guid.NewGuid(), _appContext.Identity.Id, Array.Empty<Guid>(), @event.ProjectId,
-            ActivityType.UsersJoinedProject, new object[] { @event }, DateTime.Now);
+            ActivityType.UsersJoinedProject, new[] { @event as object }, DateTime.Now);
         await _activityRepository.AddAsync(activity);
 
         await _hubService.PublishActivityAsync(activity);

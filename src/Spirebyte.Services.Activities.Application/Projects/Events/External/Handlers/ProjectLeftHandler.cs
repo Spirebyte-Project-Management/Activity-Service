@@ -26,7 +26,7 @@ public class ProjectLeftHandler : IEventHandler<ProjectLeft>
     public async Task HandleAsync(ProjectLeft @event, CancellationToken cancellationToken = default)
     {
         var activity = new Activity(Guid.NewGuid(), _appContext.Identity.Id, Array.Empty<Guid>(), @event.ProjectId,
-            ActivityType.UsersRemovedFromProject, new object[] { @event }, DateTime.Now);
+            ActivityType.UsersRemovedFromProject, new[] { @event as object }, DateTime.Now);
         await _activityRepository.AddAsync(activity);
 
         await _hubService.PublishActivityAsync(activity);

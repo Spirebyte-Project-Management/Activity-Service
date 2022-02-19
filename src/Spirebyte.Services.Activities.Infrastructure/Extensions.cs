@@ -25,6 +25,7 @@ using Convey.WebApi.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson.Serialization;
 using Open.Serialization.Json;
 using Spirebyte.Services.Activities.Application;
 using Spirebyte.Services.Activities.Application.Activities.Services.Interfaces;
@@ -37,6 +38,7 @@ using Spirebyte.Services.Activities.Infrastructure.Decorators;
 using Spirebyte.Services.Activities.Infrastructure.Exceptions;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Documents;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Repositories;
+using Spirebyte.Services.Activities.Infrastructure.Mongo.Serializers;
 using Spirebyte.Services.Activities.Infrastructure.Services;
 
 namespace Spirebyte.Services.Activities.Infrastructure;
@@ -98,6 +100,8 @@ public static class Extensions
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
     {
+        BsonSerializer.RegisterDiscriminatorConvention(typeof(object), NullDiscriminatorConvention.Instance);
+        
         app.UseErrorHandler()
             .UseSwaggerDocs()
             .UseJaeger()

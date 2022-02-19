@@ -26,7 +26,7 @@ public class ProjectUpdatedHandler : IEventHandler<ProjectUpdated>
     public async Task HandleAsync(ProjectUpdated @event, CancellationToken cancellationToken = default)
     {
         var activity = new Activity(Guid.NewGuid(), _appContext.Identity.Id, Array.Empty<Guid>(), @event.ProjectId,
-            ActivityType.ProjectUpdated, new object[] { @event }, DateTime.Now);
+            ActivityType.ProjectUpdated, new[] { @event as object }, DateTime.Now);
         await _activityRepository.AddAsync(activity);
 
         await _hubService.PublishActivityAsync(activity);
