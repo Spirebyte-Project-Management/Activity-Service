@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Spirebyte.Services.Activities.Application.Activities.DTO;
 using Spirebyte.Services.Activities.Application.Activities.Queries;
-using Spirebyte.Services.Activities.Application.Contexts;
+using Spirebyte.Shared.Contexts.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Spirebyte.Services.Activities.API.Controllers;

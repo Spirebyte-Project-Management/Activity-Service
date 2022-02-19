@@ -33,13 +33,14 @@ using Spirebyte.Services.Activities.Application.Projects.Events.External;
 using Spirebyte.Services.Activities.Application.Services.Interfaces;
 using Spirebyte.Services.Activities.Core.Repositories;
 using Spirebyte.Services.Activities.Infrastructure.Configuration;
-using Spirebyte.Services.Activities.Infrastructure.Contexts;
 using Spirebyte.Services.Activities.Infrastructure.Decorators;
 using Spirebyte.Services.Activities.Infrastructure.Exceptions;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Documents;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Repositories;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Serializers;
 using Spirebyte.Services.Activities.Infrastructure.Services;
+using Spirebyte.Shared.Contexts;
+using Spirebyte.Shared.Contexts.Interfaces;
 
 namespace Spirebyte.Services.Activities.Infrastructure;
 
@@ -64,13 +65,12 @@ public static class Extensions
     {
         builder.Services.AddTransient<IMessageBroker, MessageBroker>();
 
-        builder.Services.AddTransient<IAppContextFactory, AppContextFactory>();
-        builder.Services.AddTransient(ctx => ctx.GetRequiredService<IAppContextFactory>().Create());
-
         builder.Services.AddSingleton<IActivityRepository, ActivityRepository>();
 
         builder.Services.TryDecorate(typeof(ICommandHandler<>), typeof(OutboxCommandHandlerDecorator<>));
         builder.Services.TryDecorate(typeof(IEventHandler<>), typeof(OutboxEventHandlerDecorator<>));
+
+        builder.Services.AddSharedContexts();
 
         builder.Services
             .AddTransient<IHubService, HubService>()
@@ -125,32 +125,6 @@ public static class Extensions
         //subscriber.SubscribeEvent<UserInvitedToProject>();
 
         return subscriber;
-    }
-
-    internal static CorrelationContext GetCorrelationContext(this IHttpContextAccessor accessor)
-    {
-        if (accessor.HttpContext is null) return null;
-
-        if (!accessor.HttpContext.Request.Headers.TryGetValue("x-correlation-context", out var json)) return null;
-
-        var jsonSerializer = accessor.HttpContext.RequestServices.GetRequiredService<IJsonSerializer>();
-        var value = json.FirstOrDefault();
-
-        return string.IsNullOrWhiteSpace(value) ? null : jsonSerializer.Deserialize<CorrelationContext>(value);
-    }
-
-    public static string GetUserIpAddress(this HttpContext context)
-    {
-        if (context is null) return string.Empty;
-
-        var ipAddress = context.Connection.RemoteIpAddress?.ToString();
-        if (context.Request.Headers.TryGetValue("x-forwarded-for", out var forwardedFor))
-        {
-            var ipAddresses = forwardedFor.ToString().Split(",", StringSplitOptions.RemoveEmptyEntries);
-            if (ipAddresses.Any()) ipAddress = ipAddresses[0];
-        }
-
-        return ipAddress ?? string.Empty;
     }
 
     private static IConveyBuilder AddSignalR(this IConveyBuilder builder)

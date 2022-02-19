@@ -3,10 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Convey.CQRS.Events;
 using Spirebyte.Services.Activities.Application.Activities.Services.Interfaces;
-using Spirebyte.Services.Activities.Application.Contexts;
 using Spirebyte.Services.Activities.Core.Entities;
 using Spirebyte.Services.Activities.Core.Enums;
 using Spirebyte.Services.Activities.Core.Repositories;
+using Spirebyte.Shared.Contexts.Interfaces;
 
 namespace Spirebyte.Services.Activities.Application.Projects.Events.External.Handlers;
 

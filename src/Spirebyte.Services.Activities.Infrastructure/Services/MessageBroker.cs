@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 using Open.Serialization.Json;
 using OpenTracing;
 using Spirebyte.Services.Activities.Application.Services.Interfaces;
-using Spirebyte.Services.Activities.Infrastructure.Contexts;
+using Spirebyte.Shared.Contexts;
 
 namespace Spirebyte.Services.Activities.Infrastructure.Services;
 
