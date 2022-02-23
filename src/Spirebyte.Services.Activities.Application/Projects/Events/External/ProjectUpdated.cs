@@ -9,7 +9,7 @@ namespace Spirebyte.Services.Activities.Application.Projects.Events.External;
 [Message("projects")]
 public class ProjectUpdated : IEvent
 {
-    public string ProjectId { get; set; }
+    public string Id { get; set; }
     public Guid PermissionSchemeId { get; set; }
     public Guid OwnerUserId { get; set; }
     public IEnumerable<Guid> ProjectUserIds { get; set; }

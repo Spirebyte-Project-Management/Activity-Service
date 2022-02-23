@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using Convey.CQRS.Events;
 using Convey.MessageBrokers;
-using Spirebyte.Services.Activities.Core.ValueObjects;
 
 namespace Spirebyte.Services.Activities.Application.Sprints.Events.External;
 
 [Message("sprints")]
-internal class SprintCreated : IEvent
+public class SprintCreated : IEvent
 {
     public string Id { get; set; }
     public string Title { get; set; }
@@ -19,7 +18,6 @@ internal class SprintCreated : IEvent
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public DateTime EndedAt { get; set; }
-    public IEnumerable<Change> Changes { get; set; }
     public int RemainingStoryPoints { get; set; }
     public int TotalStoryPoints { get; set; }
 }

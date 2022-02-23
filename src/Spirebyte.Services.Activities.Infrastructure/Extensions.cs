@@ -101,7 +101,7 @@ public static class Extensions
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
     {
         BsonSerializer.RegisterDiscriminatorConvention(typeof(object), NullDiscriminatorConvention.Instance);
-        
+
         app.UseErrorHandler()
             .UseSwaggerDocs()
             .UseJaeger()
@@ -111,20 +111,9 @@ public static class Extensions
             .UseAuthentication()
             .UseStaticFiles()
             .UseRabbitMq()
-            .SubscribeToExternalProjectEvents();
+            .SubscribeApplication();
 
         return app;
-    }
-
-    private static IBusSubscriber SubscribeToExternalProjectEvents(this IBusSubscriber subscriber)
-    {
-        subscriber.SubscribeEvent<ProjectCreated>();
-        subscriber.SubscribeEvent<ProjectJoined>();
-        subscriber.SubscribeEvent<ProjectLeft>();
-        subscriber.SubscribeEvent<ProjectUpdated>();
-        //subscriber.SubscribeEvent<UserInvitedToProject>();
-
-        return subscriber;
     }
 
     private static IConveyBuilder AddSignalR(this IConveyBuilder builder)

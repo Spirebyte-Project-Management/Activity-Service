@@ -8,25 +8,25 @@ using Spirebyte.Services.Activities.Core.Enums;
 using Spirebyte.Services.Activities.Core.Repositories;
 using Spirebyte.Shared.Contexts.Interfaces;
 
-namespace Spirebyte.Services.Activities.Application.Projects.Events.External.Handlers;
+namespace Spirebyte.Services.Activities.Application.PermissionSchemes.Events.External.Handlers;
 
-public class ProjectJoinedHandler : IEventHandler<ProjectJoined>
+public class ProjectPermissionSchemeDeletedHandler : IEventHandler<ProjectPermissionSchemeDeleted>
 {
     private readonly IActivityRepository _activityRepository;
     private readonly IAppContext _appContext;
     private readonly IHubService _hubService;
 
-    public ProjectJoinedHandler(IActivityRepository activityRepository, IHubService hubService, IAppContext appContext)
+    public ProjectPermissionSchemeDeletedHandler(IActivityRepository activityRepository, IHubService hubService, IAppContext appContext)
     {
         _activityRepository = activityRepository;
         _hubService = hubService;
         _appContext = appContext;
     }
-
-    public async Task HandleAsync(ProjectJoined @event, CancellationToken cancellationToken = default)
+    
+    public async Task HandleAsync(ProjectPermissionSchemeDeleted @event, CancellationToken cancellationToken = default)
     {
-        var activity = new Activity(Guid.NewGuid(), _appContext.Identity.Id, Array.Empty<Guid>(), @event.Id,
-            ActivityType.UsersJoinedProject, new[] { @event as object }, DateTime.Now);
+        var activity = new Activity(Guid.NewGuid(), _appContext.Identity.Id, Array.Empty<Guid>(), @event.ProjectId,
+            ActivityType.ProjectPermissionSchemeDeleted, new[] { @event as object }, DateTime.Now);
         await _activityRepository.AddAsync(activity);
 
         await _hubService.PublishActivityAsync(activity);

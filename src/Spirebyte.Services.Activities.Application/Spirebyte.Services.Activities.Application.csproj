@@ -21,7 +21,6 @@
 
     <ItemGroup>
         <Folder Include="Activities" />
-        <Folder Include="Sprints\Events\External\Handlers" />
     </ItemGroup>
 
 </Project>

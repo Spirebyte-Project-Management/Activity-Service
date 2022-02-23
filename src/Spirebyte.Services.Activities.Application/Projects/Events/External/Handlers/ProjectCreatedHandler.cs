@@ -25,7 +25,7 @@ public class ProjectCreatedHandler : IEventHandler<ProjectCreated>
 
     public async Task HandleAsync(ProjectCreated @event, CancellationToken cancellationToken = default)
     {
-        var activity = new Activity(Guid.NewGuid(), _appContext.Identity.Id, Array.Empty<Guid>(), @event.ProjectId,
+        var activity = new Activity(Guid.NewGuid(), _appContext.Identity.Id, Array.Empty<Guid>(), @event.Id,
             ActivityType.ProjectCreated, new[] { @event as object }, DateTime.Now);
         await _activityRepository.AddAsync(activity);
 
