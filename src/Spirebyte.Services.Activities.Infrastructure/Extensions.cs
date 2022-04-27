@@ -39,6 +39,7 @@ using Spirebyte.Services.Activities.Infrastructure.Exceptions;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Documents;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Repositories;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Serializers;
+using Spirebyte.Services.Activities.Infrastructure.ServiceDiscovery;
 using Spirebyte.Services.Activities.Infrastructure.Services;
 using Spirebyte.Shared.Contexts;
 using Spirebyte.Shared.Contexts.Interfaces;
@@ -85,7 +86,7 @@ public static class Extensions
             .AddInMemoryQueryDispatcher()
             .AddInMemoryDispatcher()
             .AddHttpClient()
-            .AddConsul()
+            .AddCustomConsul()
             .AddFabio()
             .AddRabbitMq(plugins: p => p.AddJaegerRabbitMqPlugin())
             .AddMessageOutbox(o => o.AddMongo())
