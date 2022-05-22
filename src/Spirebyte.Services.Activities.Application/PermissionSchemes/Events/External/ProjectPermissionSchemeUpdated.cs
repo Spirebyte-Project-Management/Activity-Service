@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Convey.CQRS.Events;
 using Spirebyte.Services.Activities.Application.PermissionSchemes.Events.External.Objects;
-using Spirebyte.Services.Activities.Core.ValueObjects;
+using Spirebyte.Shared.Changes.ValueObjects;
 
 namespace Spirebyte.Services.Activities.Application.PermissionSchemes.Events.External;
 

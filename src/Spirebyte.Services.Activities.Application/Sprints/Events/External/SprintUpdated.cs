@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Convey.CQRS.Events;
 using Convey.MessageBrokers;
-using Spirebyte.Services.Activities.Core.ValueObjects;
+using Spirebyte.Shared.Changes.ValueObjects;
 
 namespace Spirebyte.Services.Activities.Application.Sprints.Events.External;
 
