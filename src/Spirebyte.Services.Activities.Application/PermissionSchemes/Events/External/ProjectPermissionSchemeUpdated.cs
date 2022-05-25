@@ -14,6 +14,6 @@ public class ProjectPermissionSchemeUpdated : IEvent
     public string Name { get; set; }
     public string Description { get; set; }
     public IEnumerable<Permission> Permissions { get; set; }
-    
+
     public Change[] Changes { get; set; }
 }

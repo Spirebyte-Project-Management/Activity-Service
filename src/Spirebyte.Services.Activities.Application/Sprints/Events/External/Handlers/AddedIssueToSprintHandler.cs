@@ -16,7 +16,8 @@ public class AddedIssueToSprintHandler : IEventHandler<AddedIssueToSprint>
     private readonly IAppContext _appContext;
     private readonly IHubService _hubService;
 
-    public AddedIssueToSprintHandler(IActivityRepository activityRepository, IHubService hubService, IAppContext appContext)
+    public AddedIssueToSprintHandler(IActivityRepository activityRepository, IHubService hubService,
+        IAppContext appContext)
     {
         _activityRepository = activityRepository;
         _hubService = hubService;

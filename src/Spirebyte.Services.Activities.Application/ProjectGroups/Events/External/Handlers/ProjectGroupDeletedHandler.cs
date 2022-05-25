@@ -16,13 +16,14 @@ public class ProjectGroupDeletedHandler : IEventHandler<ProjectGroupDeleted>
     private readonly IAppContext _appContext;
     private readonly IHubService _hubService;
 
-    public ProjectGroupDeletedHandler(IActivityRepository activityRepository, IHubService hubService, IAppContext appContext)
+    public ProjectGroupDeletedHandler(IActivityRepository activityRepository, IHubService hubService,
+        IAppContext appContext)
     {
         _activityRepository = activityRepository;
         _hubService = hubService;
         _appContext = appContext;
     }
-    
+
     public async Task HandleAsync(ProjectGroupDeleted @event, CancellationToken cancellationToken = default)
     {
         var activity = new Activity(Guid.NewGuid(), _appContext.Identity.Id, Array.Empty<Guid>(), @event.ProjectId,

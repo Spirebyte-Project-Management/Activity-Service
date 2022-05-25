@@ -24,6 +24,6 @@ public class IssueUpdated : IEvent
     public IEnumerable<Guid> LinkedIssues { get; set; }
 
     public DateTime CreatedAt { get; set; }
-    
+
     public Change[] Changes { get; set; }
 }

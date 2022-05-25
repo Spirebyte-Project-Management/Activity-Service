@@ -16,13 +16,14 @@ public class ProjectPermissionSchemeDeletedHandler : IEventHandler<ProjectPermis
     private readonly IAppContext _appContext;
     private readonly IHubService _hubService;
 
-    public ProjectPermissionSchemeDeletedHandler(IActivityRepository activityRepository, IHubService hubService, IAppContext appContext)
+    public ProjectPermissionSchemeDeletedHandler(IActivityRepository activityRepository, IHubService hubService,
+        IAppContext appContext)
     {
         _activityRepository = activityRepository;
         _hubService = hubService;
         _appContext = appContext;
     }
-    
+
     public async Task HandleAsync(ProjectPermissionSchemeDeleted @event, CancellationToken cancellationToken = default)
     {
         var activity = new Activity(Guid.NewGuid(), _appContext.Identity.Id, Array.Empty<Guid>(), @event.ProjectId,

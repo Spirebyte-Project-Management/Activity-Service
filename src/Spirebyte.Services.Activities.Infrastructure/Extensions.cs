@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Linq;
 using Convey;
 using Convey.Auth;
 using Convey.CQRS.Commands;
 using Convey.CQRS.Events;
 using Convey.CQRS.Queries;
-using Convey.Discovery.Consul;
 using Convey.Docs.Swagger;
 using Convey.HTTP;
 using Convey.LoadBalancing.Fabio;
-using Convey.MessageBrokers;
-using Convey.MessageBrokers.CQRS;
 using Convey.MessageBrokers.Outbox;
 using Convey.MessageBrokers.Outbox.Mongo;
 using Convey.MessageBrokers.RabbitMQ;
@@ -24,13 +20,10 @@ using Convey.WebApi;
 using Convey.WebApi.CQRS;
 using Convey.WebApi.Swagger;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization;
-using Open.Serialization.Json;
 using Spirebyte.Services.Activities.Application;
 using Spirebyte.Services.Activities.Application.Activities.Services.Interfaces;
-using Spirebyte.Services.Activities.Application.Projects.Events.External;
 using Spirebyte.Services.Activities.Application.Services.Interfaces;
 using Spirebyte.Services.Activities.Core.Repositories;
 using Spirebyte.Services.Activities.Infrastructure.Configuration;
@@ -42,7 +35,6 @@ using Spirebyte.Services.Activities.Infrastructure.Mongo.Serializers;
 using Spirebyte.Services.Activities.Infrastructure.ServiceDiscovery;
 using Spirebyte.Services.Activities.Infrastructure.Services;
 using Spirebyte.Shared.Contexts;
-using Spirebyte.Shared.Contexts.Interfaces;
 
 namespace Spirebyte.Services.Activities.Infrastructure;
 

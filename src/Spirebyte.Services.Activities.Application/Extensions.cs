@@ -32,7 +32,7 @@ public static class Extensions
 
         return subscriber;
     }
-    
+
     private static IBusSubscriber SubscribeToExternalProjectEvents(this IBusSubscriber subscriber)
     {
         subscriber.SubscribeEvent<ProjectCreated>();
@@ -43,7 +43,7 @@ public static class Extensions
 
         return subscriber;
     }
-    
+
     private static IBusSubscriber SubscribeToExternalProjectGroupEvents(this IBusSubscriber subscriber)
     {
         subscriber.SubscribeEvent<ProjectGroupCreated>();
@@ -52,7 +52,7 @@ public static class Extensions
 
         return subscriber;
     }
-    
+
     private static IBusSubscriber SubscribeToExternalPermissionSchemeEvents(this IBusSubscriber subscriber)
     {
         subscriber.SubscribeEvent<CustomPermissionSchemeCreated>();
@@ -61,7 +61,7 @@ public static class Extensions
 
         return subscriber;
     }
-    
+
     private static IBusSubscriber SubscribeToExternalIssueEvents(this IBusSubscriber subscriber)
     {
         subscriber.SubscribeEvent<IssueCreated>();
@@ -70,7 +70,7 @@ public static class Extensions
 
         return subscriber;
     }
-    
+
     private static IBusSubscriber SubscribeToExternalSprintEvents(this IBusSubscriber subscriber)
     {
         subscriber.SubscribeEvent<AddedIssueToSprint>();

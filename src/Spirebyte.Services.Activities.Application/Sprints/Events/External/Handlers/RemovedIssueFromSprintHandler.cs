@@ -16,7 +16,8 @@ public class RemovedIssueFromSprintHandler : IEventHandler<RemovedIssueFromSprin
     private readonly IAppContext _appContext;
     private readonly IHubService _hubService;
 
-    public RemovedIssueFromSprintHandler(IActivityRepository activityRepository, IHubService hubService, IAppContext appContext)
+    public RemovedIssueFromSprintHandler(IActivityRepository activityRepository, IHubService hubService,
+        IAppContext appContext)
     {
         _activityRepository = activityRepository;
         _hubService = hubService;

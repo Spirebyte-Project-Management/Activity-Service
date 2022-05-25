@@ -7,14 +7,17 @@ namespace Spirebyte.Services.Activities.Infrastructure.Mongo.Serializers;
 
 public class NullDiscriminatorConvention : IDiscriminatorConvention
 {
-    public static NullDiscriminatorConvention Instance { get; }
-        = new NullDiscriminatorConvention();
+    public static NullDiscriminatorConvention Instance { get; } = new();
 
     public Type GetActualType(IBsonReader bsonReader, Type nominalType)
-        => nominalType;
+    {
+        return nominalType;
+    }
 
     public BsonValue GetDiscriminator(Type nominalType, Type actualType)
-        => null;
+    {
+        return null;
+    }
 
     public string ElementName { get; } = null;
 }

@@ -11,8 +11,8 @@ public class ProjectGroupUpdated : IEvent
 {
     public Guid Id { get; set; }
     public string ProjectId { get; set; }
-    public string Name { get; set; } 
+    public string Name { get; set; }
     public IEnumerable<Guid> UserIds { get; set; }
-    
+
     public Change[] Changes { get; set; }
 }
