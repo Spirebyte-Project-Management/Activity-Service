@@ -39,7 +39,7 @@ public static class Extensions
         subscriber.SubscribeEvent<ProjectJoined>();
         subscriber.SubscribeEvent<ProjectLeft>();
         subscriber.SubscribeEvent<ProjectUpdated>();
-        //subscriber.SubscribeEvent<UserInvitedToProject>();
+        subscriber.SubscribeEvent<UserInvitedToProject>();
 
         return subscriber;
     }

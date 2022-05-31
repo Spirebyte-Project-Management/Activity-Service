@@ -10,6 +10,7 @@ public enum ActivityType
     ProjectPermissionSchemeCreated,
     ProjectPermissionSchemeUpdated,
     ProjectPermissionSchemeDeleted,
+    UsersInvitedToProject,
     UsersJoinedProject,
     UsersRemovedFromProject,
     IssuesAssigned,
