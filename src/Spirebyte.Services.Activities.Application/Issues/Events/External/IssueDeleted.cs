@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Convey.CQRS.Events;
-using Convey.MessageBrokers;
+using Spirebyte.Framework.Shared.Abstractions;
+using Spirebyte.Framework.Shared.Attributes;
 using Spirebyte.Services.Activities.Core.Enums;
 
 namespace Spirebyte.Services.Activities.Application.Issues.Events.External;
 
-[Message("issues")]
+[Message("issues", "issue_deleted", "activities.issue_deleted")]
 public class IssueDeleted : IEvent
 {
     public string Id { get; set; }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Convey.CQRS.Events;
-using Convey.MessageBrokers;
+using Spirebyte.Framework.Shared.Abstractions;
+using Spirebyte.Framework.Shared.Attributes;
 using Spirebyte.Shared.Changes.ValueObjects;
 
 namespace Spirebyte.Services.Activities.Application.Projects.Events.External;
 
-[Message("projects")]
+[Message("projects", "project_updated", "activities.project_updated")]
 public class ProjectUpdated : IEvent
 {
     public string Id { get; set; }

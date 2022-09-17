@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Convey.CQRS.Queries;
-using Convey.Persistence.MongoDB;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using Spirebyte.Framework.DAL.MongoDb;
+using Spirebyte.Framework.DAL.MongoDb.Interfaces;
+using Spirebyte.Framework.Shared.Handlers;
+using Spirebyte.Framework.Shared.Pagination;
 using Spirebyte.Services.Activities.Application.Activities.DTO;
 using Spirebyte.Services.Activities.Application.Activities.Queries;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Documents;
@@ -12,7 +15,7 @@ using Spirebyte.Services.Activities.Infrastructure.Mongo.Documents.Mappers;
 
 namespace Spirebyte.Services.Activities.Infrastructure.Mongo.Queries.Handlers;
 
-internal sealed class BrowseActivitiesHandler : IQueryHandler<BrowseActivities, PagedResult<ActivityDto>>
+internal sealed class BrowseActivitiesHandler : IQueryHandler<BrowseActivities, Paged<ActivityDto>>
 {
     private readonly IMongoRepository<ActivityDocument, Guid> _activitiesRepository;
 
@@ -21,7 +24,7 @@ internal sealed class BrowseActivitiesHandler : IQueryHandler<BrowseActivities, 
         _activitiesRepository = activitiesRepository;
     }
 
-    public async Task<PagedResult<ActivityDto>> HandleAsync(BrowseActivities query,
+    public async Task<Paged<ActivityDto>> HandleAsync(BrowseActivities query,
         CancellationToken cancellationToken = default)
     {
         Expression<Func<ActivityDocument, bool>> expression = x => true;
@@ -31,9 +34,6 @@ internal sealed class BrowseActivitiesHandler : IQueryHandler<BrowseActivities, 
 
         if (query.UserId is not null) expression = expression.And(x => x.ProjectId == query.ProjectId);
 
-        var result = await _activitiesRepository.BrowseAsync(expression, query);
-        var activities = result.Items.Select(x => x.AsDto()).ToList();
-
-        return PagedResult<ActivityDto>.From(result, activities);
+        return await _activitiesRepository.Collection.AsQueryable().Where(expression).Select(x => x.AsDto()).PaginateAsync(query.Page, query.Results, cancellationToken: cancellationToken);
     }
 }

@@ -1,15 +1,10 @@
 using System.Threading.Tasks;
-using Convey;
-using Convey.Logging;
-using Convey.Secrets.Vault;
-using Convey.Types;
-using Convey.WebApi;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Spirebyte.Framework;
 using Spirebyte.Services.Activities.Application;
 using Spirebyte.Services.Activities.Infrastructure;
 
@@ -24,38 +19,26 @@ public class Program
             .RunAsync();
     }
 
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+    private static IWebHostBuilder CreateWebHostBuilder(string[] args)
     {
         return WebHost.CreateDefaultBuilder(args)
-            .ConfigureServices(services =>
-            {
-                services.AddControllers().AddMetrics();
-                services
-                    .AddCors()
-                    .AddConvey()
-                    .AddWebApi()
-                    .AddApplication()
-                    .AddInfrastructure()
-                    .Build();
-            })
+            .ConfigureServices((ctx, services) => services
+                .AddApplication()
+                .AddInfrastructure(ctx.Configuration)
+                .AddControllers()
+            )
             .Configure(app => app
-                .UseCors(x => x
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .SetIsOriginAllowed(origin => true)
-                    .AllowCredentials())
+                .UseSpirebyteFramework()
+                .UseApplication()
                 .UseInfrastructure()
-                .UseRouting()
-                .UseAuthorization()
-                .UsePingEndpoint()
                 .UseEndpoints(endpoints =>
                     {
                         endpoints.MapGet("",
-                            ctx => ctx.Response.WriteAsync(ctx.RequestServices.GetService<AppOptions>()?.Name!));
+                            ctx => ctx.Response.WriteAsync(ctx.RequestServices.GetService<AppInfo>().Name));
+                        endpoints.MapGet("/ping", () => "pong");
                         endpoints.MapControllers();
                     }
                 ))
-            .UseLogging()
-            .UseVault();
+            .AddSpirebyteFramework();
     }
 }

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Convey.Auth;
 using Microsoft.AspNetCore.SignalR;
+using Spirebyte.Framework.Contexts;
 
 namespace Spirebyte.Services.Activities.Infrastructure.Hubs;
 
 public class SpirebyteHub : Hub
 {
-    private readonly IJwtHandler _jwtHandler;
+    private readonly IContextAccessor _contextAccessor;
 
-    public SpirebyteHub(IJwtHandler jwtHandler)
+    public SpirebyteHub(IContextAccessor contextAccessor)
     {
-        _jwtHandler = jwtHandler;
+        _contextAccessor = contextAccessor;
     }
 
     public async Task JoinProjectActivityStream(string projectId)
@@ -24,20 +24,12 @@ public class SpirebyteHub : Hub
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, projectId.ToProjectGroup());
     }
 
-    public async Task InitializeAsync(string token)
+    public async Task InitializeAsync()
     {
-        if (string.IsNullOrWhiteSpace(token)) await DisconnectAsync();
+        if (string.IsNullOrWhiteSpace(_contextAccessor.Context?.UserId)) await DisconnectAsync();
         try
         {
-            var payload = _jwtHandler.GetTokenPayload(token);
-            if (payload is null)
-            {
-                await DisconnectAsync();
-
-                return;
-            }
-
-            var group = Guid.Parse(payload.Subject).ToUserGroup();
+            var group = Guid.Parse(_contextAccessor.Context?.UserId).ToUserGroup();
             await Groups.AddToGroupAsync(Context.ConnectionId, group);
             await ConnectAsync();
         }

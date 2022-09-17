@@ -1,8 +1,7 @@
-﻿using Convey;
-using Convey.CQRS.Commands;
-using Convey.CQRS.Events;
-using Convey.MessageBrokers;
-using Convey.MessageBrokers.CQRS;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Spirebyte.Framework.Messaging;
+using Spirebyte.Framework.Messaging.Subscribers;
 using Spirebyte.Services.Activities.Application.Issues.Events.External;
 using Spirebyte.Services.Activities.Application.PermissionSchemes.Events.External;
 using Spirebyte.Services.Activities.Application.ProjectGroups.Events.External;
@@ -13,16 +12,25 @@ namespace Spirebyte.Services.Activities.Application;
 
 public static class Extensions
 {
-    public static IConveyBuilder AddApplication(this IConveyBuilder builder)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        return builder
-            .AddCommandHandlers()
-            .AddEventHandlers()
-            .AddInMemoryCommandDispatcher()
-            .AddInMemoryEventDispatcher();
+        return services;
     }
 
-    public static IBusSubscriber SubscribeApplication(this IBusSubscriber subscriber)
+    public static IApplicationBuilder UseApplication(this IApplicationBuilder app)
+    {
+        app.Subscribe()
+            .SubscribeToExternalProjectEvents()
+            .SubscribeToExternalProjectGroupEvents()
+            .SubscribeToExternalPermissionSchemeEvents()
+            .SubscribeToExternalIssueEvents()
+            .SubscribeToExternalSprintEvents();
+
+        return app;
+    }
+    
+
+    public static IMessageSubscriber SubscribeApplication(this IMessageSubscriber subscriber)
     {
         subscriber.SubscribeToExternalProjectEvents();
         subscriber.SubscribeToExternalProjectGroupEvents();
@@ -33,53 +41,53 @@ public static class Extensions
         return subscriber;
     }
 
-    private static IBusSubscriber SubscribeToExternalProjectEvents(this IBusSubscriber subscriber)
+    private static IMessageSubscriber SubscribeToExternalProjectEvents(this IMessageSubscriber subscriber)
     {
-        subscriber.SubscribeEvent<ProjectCreated>();
-        subscriber.SubscribeEvent<ProjectJoined>();
-        subscriber.SubscribeEvent<ProjectLeft>();
-        subscriber.SubscribeEvent<ProjectUpdated>();
-        subscriber.SubscribeEvent<UserInvitedToProject>();
+        subscriber.Event<ProjectCreated>();
+        subscriber.Event<ProjectJoined>();
+        subscriber.Event<ProjectLeft>();
+        subscriber.Event<ProjectUpdated>();
+        subscriber.Event<UserInvitedToProject>();
 
         return subscriber;
     }
 
-    private static IBusSubscriber SubscribeToExternalProjectGroupEvents(this IBusSubscriber subscriber)
+    private static IMessageSubscriber SubscribeToExternalProjectGroupEvents(this IMessageSubscriber subscriber)
     {
-        subscriber.SubscribeEvent<ProjectGroupCreated>();
-        subscriber.SubscribeEvent<ProjectGroupUpdated>();
-        subscriber.SubscribeEvent<ProjectGroupDeleted>();
+        subscriber.Event<ProjectGroupCreated>();
+        subscriber.Event<ProjectGroupUpdated>();
+        subscriber.Event<ProjectGroupDeleted>();
 
         return subscriber;
     }
 
-    private static IBusSubscriber SubscribeToExternalPermissionSchemeEvents(this IBusSubscriber subscriber)
+    private static IMessageSubscriber SubscribeToExternalPermissionSchemeEvents(this IMessageSubscriber subscriber)
     {
-        subscriber.SubscribeEvent<CustomPermissionSchemeCreated>();
-        subscriber.SubscribeEvent<ProjectPermissionSchemeUpdated>();
-        subscriber.SubscribeEvent<ProjectPermissionSchemeDeleted>();
+        subscriber.Event<CustomPermissionSchemeCreated>();
+        subscriber.Event<ProjectPermissionSchemeUpdated>();
+        subscriber.Event<ProjectPermissionSchemeDeleted>();
 
         return subscriber;
     }
 
-    private static IBusSubscriber SubscribeToExternalIssueEvents(this IBusSubscriber subscriber)
+    private static IMessageSubscriber SubscribeToExternalIssueEvents(this IMessageSubscriber subscriber)
     {
-        subscriber.SubscribeEvent<IssueCreated>();
-        subscriber.SubscribeEvent<IssueUpdated>();
-        subscriber.SubscribeEvent<IssueDeleted>();
+        subscriber.Event<IssueCreated>();
+        subscriber.Event<IssueUpdated>();
+        subscriber.Event<IssueDeleted>();
 
         return subscriber;
     }
 
-    private static IBusSubscriber SubscribeToExternalSprintEvents(this IBusSubscriber subscriber)
+    private static IMessageSubscriber SubscribeToExternalSprintEvents(this IMessageSubscriber subscriber)
     {
-        subscriber.SubscribeEvent<AddedIssueToSprint>();
-        subscriber.SubscribeEvent<EndedSprint>();
-        subscriber.SubscribeEvent<RemovedIssueFromSprint>();
-        subscriber.SubscribeEvent<SprintCreated>();
-        subscriber.SubscribeEvent<SprintDeleted>();
-        subscriber.SubscribeEvent<SprintUpdated>();
-        subscriber.SubscribeEvent<StartedSprint>();
+        subscriber.Event<AddedIssueToSprint>();
+        subscriber.Event<EndedSprint>();
+        subscriber.Event<RemovedIssueFromSprint>();
+        subscriber.Event<SprintCreated>();
+        subscriber.Event<SprintDeleted>();
+        subscriber.Event<SprintUpdated>();
+        subscriber.Event<StartedSprint>();
 
         return subscriber;
     }

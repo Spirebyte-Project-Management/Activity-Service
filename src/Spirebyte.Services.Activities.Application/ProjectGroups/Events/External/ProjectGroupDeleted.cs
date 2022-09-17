@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Convey.CQRS.Events;
-using Convey.MessageBrokers;
+using Spirebyte.Framework.Shared.Abstractions;
+using Spirebyte.Framework.Shared.Attributes;
 
 namespace Spirebyte.Services.Activities.Application.ProjectGroups.Events.External;
 
-[Message("projects")]
+[Message("projects", "project_group_deleted", "activities.project_group_deleted")]
 public class ProjectGroupDeleted : IEvent
 {
     public Guid Id { get; set; }

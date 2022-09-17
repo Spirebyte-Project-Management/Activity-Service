@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Convey.Persistence.MongoDB;
+using Spirebyte.Framework.DAL.MongoDb.Interfaces;
 using Spirebyte.Services.Activities.Core.Entities;
 using Spirebyte.Services.Activities.Core.Repositories;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Documents;

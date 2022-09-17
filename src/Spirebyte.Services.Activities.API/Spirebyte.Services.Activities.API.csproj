@@ -10,20 +10,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Convey" Version="1.0.531"/>
-        <PackageReference Include="Convey.Logging" Version="1.0.531"/>
-        <PackageReference Include="Convey.WebApi" Version="1.0.531"/>
-        <PackageReference Include="Convey.WebApi.CQRS" Version="1.0.531"/>
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0"/>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Spirebyte.Services.Activities.Infrastructure\Spirebyte.Services.Activities.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Spirebyte.Services.Activities.Infrastructure\Spirebyte.Services.Activities.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <_ContentIncludedByDefault Remove="wwwroot\ui\index.html"/>
-        <_ContentIncludedByDefault Remove="wwwroot\ui\js\app.js"/>
-        <_ContentIncludedByDefault Remove="wwwroot\ui\js\signalr.js"/>
+        <Content Include="Certs\**" CopyToPublishDirectory="Always" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="wwwroot\ui\index.html" />
+        <_ContentIncludedByDefault Remove="wwwroot\ui\js\app.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\ui\js\signalr.js" />
     </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
-using Convey.Types;
 using MongoDB.Bson.Serialization.Attributes;
+using Spirebyte.Framework.Shared.Types;
 using Spirebyte.Services.Activities.Core.Enums;
 
 namespace Spirebyte.Services.Activities.Infrastructure.Mongo.Documents;
