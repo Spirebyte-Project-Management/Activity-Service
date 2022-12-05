@@ -1,11 +1,14 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Spirebyte.Framework;
+using Spirebyte.Framework.Auth;
 using Spirebyte.Services.Activities.Application;
+using Spirebyte.Services.Activities.Core.Constants;
 using Spirebyte.Services.Activities.Infrastructure;
 
 namespace Spirebyte.Services.Activities.API;
@@ -25,6 +28,10 @@ public class Program
             .ConfigureServices((ctx, services) => services
                 .AddApplication()
                 .AddInfrastructure(ctx.Configuration)
+                .Configure<AuthorizationOptions>(options =>
+                {
+                    options.AddEitherOrScopePolicy(ApiScopes.ActivitiesRead, ApiScopes.ActivitiesRead, ApiScopes.ActivitiesManage);
+                })
                 .AddControllers()
             )
             .Configure(app => app

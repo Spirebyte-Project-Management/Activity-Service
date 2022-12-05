@@ -6,7 +6,7 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="Spirebyte.Framework" Version="1.1.6" />
+        <PackageReference Include="Spirebyte.Framework" Version="1.1.17" />
     </ItemGroup>
 
 </Project>

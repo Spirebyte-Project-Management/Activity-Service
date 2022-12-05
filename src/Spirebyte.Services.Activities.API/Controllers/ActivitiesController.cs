@@ -6,6 +6,7 @@ using Spirebyte.Framework.Shared.Handlers;
 using Spirebyte.Framework.Shared.Pagination;
 using Spirebyte.Services.Activities.Application.Activities.DTO;
 using Spirebyte.Services.Activities.Application.Activities.Queries;
+using Spirebyte.Services.Activities.Core.Constants;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Spirebyte.Services.Activities.API.Controllers;
@@ -24,6 +25,7 @@ public class ActivitiesController : Controller
 
     [HttpGet]
     [SwaggerOperation("Browse activities")]
+    [Authorize(ApiScopes.ActivitiesRead)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

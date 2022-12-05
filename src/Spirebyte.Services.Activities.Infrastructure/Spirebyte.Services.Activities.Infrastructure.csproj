@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Spirebyte.Framework.DAL.MongoDb" Version="1.1.6" />
+        <PackageReference Include="Spirebyte.Framework.DAL.MongoDb" Version="1.1.17" />
 
         <PackageReference Include="Google.Protobuf" Version="3.21.6" />
         <PackageReference Include="Grpc.AspNetCore" Version="2.42.0" />
