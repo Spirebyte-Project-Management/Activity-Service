@@ -3,10 +3,8 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <UserSecretsId>42a1577c-f987-40cb-a86f-b405f8011969</UserSecretsId>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <DockerfileContext>..\..\..\..</DockerfileContext>
-        <DockerComposeProjectPath>..\..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
         <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,10 +13,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Spirebyte.Services.Activities.Infrastructure\Spirebyte.Services.Activities.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="Certs\**" CopyToPublishDirectory="Always" />
     </ItemGroup>
     
     <ItemGroup>
