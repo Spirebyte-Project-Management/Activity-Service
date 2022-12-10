@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <LangVersion>latestmajor</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Spirebyte.Framework.DAL.MongoDb" Version="1.1.36" />
+        <PackageReference Include="Spirebyte.Framework.DAL.MongoDb" Version="1.2.2" />
 
-        <PackageReference Include="Google.Protobuf" Version="3.21.6" />
-        <PackageReference Include="Grpc.AspNetCore" Version="2.42.0" />
-        <PackageReference Include="Grpc.Tools" Version="2.43.0">
+        <PackageReference Include="Google.Protobuf" Version="3.21.11" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.50.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.51.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
