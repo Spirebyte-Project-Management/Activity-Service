@@ -27,13 +27,8 @@ internal sealed class BrowseActivitiesHandler : IQueryHandler<BrowseActivities, 
     public async Task<Paged<ActivityDto>> HandleAsync(BrowseActivities query,
         CancellationToken cancellationToken = default)
     {
-        Expression<Func<ActivityDocument, bool>> expression = x => true;
+        var pagedActivities = await _activitiesRepository.BrowseAsync(query);
 
-        if (!string.IsNullOrWhiteSpace(query.ProjectId))
-            expression = expression.And(x => x.ProjectId == query.ProjectId);
-
-        if (query.UserId is not null) expression = expression.And(x => x.ProjectId == query.ProjectId);
-
-        return await _activitiesRepository.Collection.AsQueryable().Where(expression).Select(x => x.AsDto()).PaginateAsync(query.Page, query.Results, cancellationToken: cancellationToken);
+        return pagedActivities.Map(c => c.AsDto());
     }
 }

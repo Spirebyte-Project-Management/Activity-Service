@@ -6,7 +6,6 @@ using MongoDB.Bson.Serialization;
 using Spirebyte.Framework.DAL.MongoDb;
 using Spirebyte.Services.Activities.Application.Activities.Services.Interfaces;
 using Spirebyte.Services.Activities.Core.Repositories;
-using Spirebyte.Services.Activities.Infrastructure.Configuration;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Documents;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Repositories;
 using Spirebyte.Services.Activities.Infrastructure.Mongo.Serializers;
